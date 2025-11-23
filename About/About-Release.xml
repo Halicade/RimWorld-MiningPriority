@@ -6,11 +6,13 @@
 		<li>1.6</li>
 	</supportedVersions>
 	<packageId>Uuugggg.MiningPriority</packageId>
-	<description>Mine valuable ores before tunneling through rock. Prioritizes mining to the rarest metal first.
+	<description>Continued version of Mining priority by Uuugggg. Thank you for everything!
+Mine valuable ores before tunneling through rock. Prioritizes mining to the rarest metal first.
 
 Only your best miners will dig for valuables (if lower skilled miners yield less)
 
-Check Steam page for any updated info.</description>
+Check Steam page for any updated info.
+	</description>
 	<url>https://github.com/Halicade/RimWorld-MiningPriority</url>
 	<modDependencies>
 		<li>
