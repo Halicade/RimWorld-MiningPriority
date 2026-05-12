@@ -16,12 +16,14 @@ namespace Mining_Priority
 		public bool continueWork = true;
 		public bool finishUpDrills = true;
 		public float qualityGoodEnough = 1.0f;
+		public int refreshCacheTime = 2500;
 
 
 		public void DoWindowContents(Rect wrect)
 		{
 			var options = new Listing_Standard();
-			options.Begin(wrect);
+			string refreshCacheBuffer = refreshCacheTime.ToString();
+			options.Begin(wrect.LeftPart(0.7f));
 
 			options.CheckboxLabeled("TD.MineValue".Translate(), ref priorityMining);
 			options.CheckboxLabeled("TD.SettingPartialyMined".Translate(), ref continueWork);
@@ -33,6 +35,8 @@ namespace Mining_Priority
 			{
 				options.CheckboxLabeled("TD.SettingIgnoreBusy".Translate(), ref qualityMiningIgnoreBusy, "TD.SettingIgnoreBusyDesc".Translate());
 				options.SliderLabeled("TD.SettingMinerGoodEnough".Translate(), ref qualityGoodEnough, "{0:P0}", 0, 1, "TD.SettingMinerGoodEnoughDesc".Translate());
+				options.Label("TD.SettingRefreshCache".Translate());
+				options.TextFieldNumeric( ref refreshCacheTime, ref refreshCacheBuffer);
 			}
 			options.Gap();
 
@@ -47,6 +51,7 @@ namespace Mining_Priority
 			Scribe_Values.Look(ref continueWork, "continueWork", true);
 			Scribe_Values.Look(ref finishUpDrills, "finishUpDrills", true);
 			Scribe_Values.Look(ref qualityGoodEnough, "priorityGoodEnough", 1.0f);
+			Scribe_Values.Look(ref refreshCacheTime, "refreshCacheTime", 2500);
 		}
 	}
 }

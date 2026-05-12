@@ -12,5 +12,6 @@
 	<TD.SettingPartialyMined>优先选择已有开采进度的矿石</TD.SettingPartialyMined>
 	<TD.JobFailReasonNotBestMiner>不是最高级矿工</TD.JobFailReasonNotBestMiner>
 	<TD.SettingFinishUpDrills>深钻作业尽可能耗尽疲劳值</TD.SettingFinishUpDrills>
+	<TD.SettingRefreshCache>最佳矿工更新间隔（默认值：2500）</TD.SettingRefreshCache>
 	
 </LanguageData>

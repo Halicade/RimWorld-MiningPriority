@@ -12,5 +12,6 @@
 	<TD.SettingPartialyMined>Prefer partially mined targets</TD.SettingPartialyMined>
 	<TD.JobFailReasonNotBestMiner>Not the best miner</TD.JobFailReasonNotBestMiner>
 	<TD.SettingFinishUpDrills>Prefer deep drills that are nearer to exhaustion</TD.SettingFinishUpDrills>
+	<TD.SettingRefreshCache>How many ticks to refresh the best miner check (default 2500)</TD.SettingRefreshCache>
 	
 </LanguageData>

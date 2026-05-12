@@ -12,5 +12,6 @@
 	<TD.SettingPartialyMined>Bevorzugt nur partiell reduzierte Flächen</TD.SettingPartialyMined>
 	<TD.JobFailReasonNotBestMiner>Nicht der beste Bergmann</TD.JobFailReasonNotBestMiner>
 	<TD.SettingFinishUpDrills>Bevorzugt tiefe Bohrungen, die näher vor der Erschöpfung stehen</TD.SettingFinishUpDrills>
+	<TD.SettingRefreshCache>Ticks zum Auffrischen des besten Miner-Checks (Standard 2500)</TD.SettingRefreshCache>
 	
 </LanguageData>

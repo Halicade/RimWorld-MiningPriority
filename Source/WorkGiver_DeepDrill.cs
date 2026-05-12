@@ -20,7 +20,7 @@ namespace Mining_Priority
 	{
 		public static void Postfix(WorkGiver_Scanner __instance, ref float __result, Pawn pawn, TargetInfo t)
 		{
-			if (!(__instance is WorkGiver_DeepDrill) || !t.HasThing)
+			if (__instance is not WorkGiver_DeepDrill || !t.HasThing)
 				return;
 
 			IntVec3 drillPos = t.Thing.Position;

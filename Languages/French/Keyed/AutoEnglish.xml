@@ -12,5 +12,6 @@
 	<TD.SettingPartialyMined>Préférez les cibles partiellement minées</TD.SettingPartialyMined>
 	<TD.JobFailReasonNotBestMiner>Pas le meilleur mineur</TD.JobFailReasonNotBestMiner>
 	<TD.SettingFinishUpDrills>Préférez les forets profonds qui sont plus proches de l'épuisement</TD.SettingFinishUpDrills>
+	<TD.SettingRefreshCache>intervalle de mise à jour du meilleur mineur (par défaut 2500)</TD.SettingRefreshCache>
 	
 </LanguageData>

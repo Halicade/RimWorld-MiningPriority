@@ -28,7 +28,7 @@ namespace Mining_Priority
 
 		public static void Postfix(WorkGiver_Scanner __instance, ref float __result, Pawn pawn, TargetInfo t)
 		{
-			if (!(__instance is WorkGiver_Miner) || !t.HasThing)
+			if (__instance is not WorkGiver_Miner || !t.HasThing)
 				return;
 
 			BuildingProperties building = t.Thing.def.building;
@@ -115,26 +115,43 @@ namespace Mining_Priority
 	[HarmonyPatch(typeof(WorkGiver_Miner), "JobOnThing")]
 	public static class WorkGiver_Miner_JobOnThing_Patch
 	{
-		public static bool IsGoodMiner(Pawn pawn, Type workGiverType)
-		{
+		private static Map storedMap;
+		private static int lastMineCheck = 0;
+		private static float bestMiningYield;
+
+
+		private static void recalculateBestMiner(Pawn pawn, Type workGiverType) {
 			Func<Pawn, bool> validatePawn = p => p == pawn || (
 				p.workSettings != null &&
 				p.workSettings.WorkIsActive(WorkTypeDefOf.Mining) &&
 				p.workSettings.WorkGiversInOrderNormal.Any(wg => wg.GetType() == workGiverType) &&
-				(!Mod.settings.qualityMiningIgnoreBusy || p.CurJob?.def == JobDefOf.Mine || p.CurJob?.def == JobDefOf.OperateDeepDrill));
+				(!Mod.settings.qualityMiningIgnoreBusy || p.CurJob?.def == JobDefOf.Mine ||
+				 p.CurJob?.def == JobDefOf.OperateDeepDrill));
 
-			//TODO: save value instead of computing each JobOnThing
-			float bestMiningYield = pawn.Map.mapPawns.PawnsInFaction(Faction.OfPlayer).Where(validatePawn).Select(p => p.GetStatValue(StatDefOf.MiningYield)).Max();
-
+			bestMiningYield = pawn.Map.mapPawns.PawnsInFaction(Faction.OfPlayer).Where(validatePawn)
+				.Select(p => p.GetStatValue(StatDefOf.MiningYield)).Max();
 			bestMiningYield *= Mod.settings.qualityGoodEnough;
+		}
+
+		public static bool IsGoodMiner(Pawn pawn, Type workGiverType) {
+			int currentTicks = Find.TickManager.TicksGame;
+			if (pawn.MapHeld != storedMap) {
+				storedMap = pawn.MapHeld;
+				lastMineCheck = currentTicks;
+				recalculateBestMiner(pawn, workGiverType);
+			}
+			else if (lastMineCheck < currentTicks - Mod.settings.refreshCacheTime || currentTicks < lastMineCheck) {
+				lastMineCheck = currentTicks;
+				recalculateBestMiner(pawn, workGiverType);
+			}
 
 			bool bestMiner = pawn.GetStatValue(StatDefOf.MiningYield) >= bestMiningYield;
 			Log.Message($"{pawn} is the best : {bestMiner}");
-			if (!bestMiner)
-			{
+			if (!bestMiner) {
 				JobFailReason.Is("TD.JobFailReasonNotBestMiner".Translate());
 				return false;
 			}
+
 			return true;
 		}
 
