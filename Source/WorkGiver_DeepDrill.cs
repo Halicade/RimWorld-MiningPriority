@@ -14,10 +14,17 @@ namespace Mining_Priority
 {
 	// Would like to patch WorkGiver_DeepDrill but there is no override so:
 	// ACTUALLY WorkGiver_Scanner
-	[HarmonyPatch(typeof(WorkGiver_Scanner), "GetPriority", new Type[] { typeof(Pawn), typeof(TargetInfo) })]
+	[HarmonyPatch(typeof(WorkGiver_Scanner), nameof(WorkGiver_DeepDrill.GetPriority), typeof(Pawn), typeof(TargetInfo))]
 	//public virtual float GetPriority(Pawn pawn, TargetInfo t)
 	public static class WorkGiver_DeepDrill_GetPriority_Patch
 	{
+		
+		public static float Priority(float commonality, IntRange sizeRange) {
+			if (Mod.settings.priorityDrilling)
+				return (commonality == 0) ? -5 : -commonality - sizeRange.Average / 10000f;
+			return 0f;
+		}
+		
 		public static void Postfix(WorkGiver_Scanner __instance, ref float __result, Pawn pawn, TargetInfo t)
 		{
 			if (__instance is not WorkGiver_DeepDrill || !t.HasThing)
@@ -28,7 +35,7 @@ namespace Mining_Priority
 			ThingDef def = DeepDrillUtility.GetNextResource(drillPos, map);
 			if (def == null) return;
 			
-			float p = WorkGiver_Miner_GetPriority_Patch.Priority(def.deepCommonality, def.deepLumpSizeRange);
+			float p = Priority(def.deepCommonality, def.deepLumpSizeRange);
 			
 			if (Mod.settings.finishUpDrills)
 			{
@@ -51,13 +58,13 @@ namespace Mining_Priority
 		}
 	}
 
-	[HarmonyPatch(typeof(WorkGiver_DeepDrill), "HasJobOnThing")]
+	[HarmonyPatch(typeof(WorkGiver_DeepDrill), nameof(WorkGiver_DeepDrill.HasJobOnThing))]
 	public static class WorkGiver_DeepDrill_JobOnThing_Patch
 	{ 
 		//public override bool HasJobOnThing(Pawn pawn, Thing t, bool forced = false)	{
 		public static bool Prefix(ref bool __result, Pawn pawn, Thing t, bool forced = false)
 		{
-			if (!Mod.settings.qualityMining || forced) return true;
+			if (!Mod.settings.qualityDrilling || forced) return true;
 
 			CompDeepDrill comp = t.TryGetComp<CompDeepDrill>();
 			if (!comp?.ValuableResourcesPresent() ?? false) return true;

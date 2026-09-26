@@ -14,16 +14,14 @@ namespace Mining_Priority
 {
 	// Would like to patch WorkGiver_Miner but there is no override so:
 	// ACTUALLY WorkGiver_Scanner
-	[HarmonyPatch(typeof(WorkGiver_Scanner), "GetPriority", new Type[] { typeof(Pawn), typeof(TargetInfo) })]
+	[HarmonyPatch(typeof(WorkGiver_Scanner), nameof(WorkGiver_Scanner.GetPriority), typeof(Pawn), typeof(TargetInfo))]
 	//public virtual float GetPriority(Pawn pawn, TargetInfo t)
 	public static class WorkGiver_Miner_GetPriority_Patch
 	{
-		public static float Priority(float commonality, IntRange sizeRange)
-		{
+		public static float Priority(float commonality, IntRange sizeRange) {
 			if (Mod.settings.priorityMining)
 				return (commonality == 0) ? -5 : -commonality - sizeRange.Average / 10000f;
-			else
-				return 0f;
+			return 0f;
 		}
 
 		public static void Postfix(WorkGiver_Scanner __instance, ref float __result, Pawn pawn, TargetInfo t)
@@ -69,7 +67,7 @@ namespace Mining_Priority
 	//So instead I'm transpiling the call to Prioritized ~ just two exist in the same function 
 	// ~ and this will be a problem if there are more calls to Prioritized added.
 	//public override ThinkResult TryIssueJobPackage(Pawn pawn, JobIssueParams jobParams)
-	[HarmonyPatch(typeof(JobGiver_Work), "TryIssueJobPackage")]
+	[HarmonyPatch(typeof(JobGiver_Work), nameof(JobGiver_Work.TryIssueJobPackage))]
 	public static class Prioritized_Patch
 	{
 		//IL_0206: ldloc.s packageCAnonStorey1
@@ -112,7 +110,7 @@ namespace Mining_Priority
 	}
 
 	//public override Job JobOnThing(Pawn pawn, Thing t, bool forced = false)
-	[HarmonyPatch(typeof(WorkGiver_Miner), "JobOnThing")]
+	[HarmonyPatch(typeof(WorkGiver_Miner), nameof(WorkGiver_Miner.JobOnThing))]
 	public static class WorkGiver_Miner_JobOnThing_Patch
 	{
 		private static Map storedMap;

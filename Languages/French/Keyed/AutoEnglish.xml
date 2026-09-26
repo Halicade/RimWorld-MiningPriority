@@ -3,8 +3,10 @@
 	
 	<TD.MiningPriority>Mining Priority</TD.MiningPriority>
 	<TD.RestrictBest>Restreindre l'exploitation minière avec rendement aux meilleurs mineurs</TD.RestrictBest>
+	<TD.RestrictBestDrill>Limiter le forage aux meilleurs mineurs en fonction du rendement.</TD.RestrictBestDrill>
 	<TD.RestrictBestDesc>Parce que les mineurs peu qualifiés ne produiront pas autant. Le rendement augmente jusqu'à la compétence 8, mais une mauvaise santé peut l'affecter. Vérifiez leur rendement minier dans leur fenêtre de statistiques.</TD.RestrictBestDesc>
 	<TD.MineValue>Miner par ordre de valeur</TD.MineValue>
+	<TD.DrillValue>Effectuez les exercices par ordre de valeur.</TD.DrillValue>
 	<TD.SettingIgnoreBusy>Ignorer les meilleurs mineurs occupés par un autre travail</TD.SettingIgnoreBusy>
 	<TD.SettingIgnoreBusyDesc>Vérifie si votre meilleur mineur est occupé avec d'autres travaux et permet aux prochains mineurs les plus qualifiés d'exploiter</TD.SettingIgnoreBusyDesc>
 	<TD.SettingMinerGoodEnough>Inclure les mineurs qui sont assez bons</TD.SettingMinerGoodEnough>
