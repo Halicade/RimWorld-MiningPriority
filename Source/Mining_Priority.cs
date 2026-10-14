@@ -1,12 +1,6 @@
-﻿using System.Reflection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Verse;
+﻿using Verse;
 using UnityEngine;
 using HarmonyLib;
-using RimWorld;
 
 namespace Mining_Priority
 {

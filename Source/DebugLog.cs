@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace Mining_Priority
+﻿namespace Mining_Priority
 {
 	static class Log
 	{
