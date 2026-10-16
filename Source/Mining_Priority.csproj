@@ -17,7 +17,7 @@
     </PropertyGroup>
     <ItemGroup>
         <PackageReference Include="Lib.Harmony">
-            <Version>3.0.0-rc.2</Version>
+            <Version>3.0.0-rc.3</Version>
             <ExcludeAssets>runtime</ExcludeAssets>
         </PackageReference>
     </ItemGroup>

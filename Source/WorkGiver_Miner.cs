@@ -95,13 +95,13 @@ namespace Mining_Priority
 
 		public static bool TranspilerPostfix(bool result, WorkGiver instance)
 		{
-			if (instance is WorkGiver_Miner)
-			{
-				result |= Mod.settings.priorityMining || Mod.settings.continueWork;
-			}
-			if (instance is WorkGiver_DeepDrill)
-			{
-				result |= Mod.settings.priorityMining || Mod.settings.finishUpDrills;
+			switch (instance) {
+				case WorkGiver_Miner:
+					result |= Mod.settings.priorityMining || Mod.settings.continueWork;
+					break;
+				case WorkGiver_DeepDrill:
+					result |= Mod.settings.priorityMining || Mod.settings.finishUpDrills;
+					break;
 			}
 			return result;
 		}
